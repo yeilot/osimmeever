@@ -26,7 +26,7 @@ import { cn } from './lib/utils';
 // Constants
 const TARGET_DEEDS = 250;
 const END_DATE = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000); // 5 days from now
-const SCRIPT_URL = 'YOUR_NEW_SCRIPT_URL_HERE';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjYr2RZznyQFeSnuUjLNVmMwiViSm4D72LmS-hY81NH_IvKWKBAkbhJfTU7eJmUjefCQ/exec';
 
 interface Participant {
   id: string;
