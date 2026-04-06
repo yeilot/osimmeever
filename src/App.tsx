@@ -26,7 +26,7 @@ import { cn } from './lib/utils';
 // Constants
 const TARGET_DEEDS = 250;
 const END_DATE = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000); // 5 days from now
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjYr2RZznyQFeSnuUjLNVmMwiViSm4D72LmS-hY81NH_IvKWKBAkbhJfTU7eJmUjefCQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxa6scAvSElQha_2qywdqIHeTzjR6QQp5sRgSn5e6RwmcDUAZ-swGHa5FEfAj9oH9J2pw/exec';
 
 // Google Drive IDs - Replace these with your actual IDs from Drive
 const GUY_IMAGE_DRIVE_ID = '16yrbvuwjc0WZgyav6wxfvKeJHlvKKgAO'; // Paste Guy's image ID here
@@ -95,8 +95,8 @@ export default function App() {
 
   useEffect(() => {
     fetchData();
-    // Refresh every 30 seconds for better responsiveness during testing
-    const interval = setInterval(fetchData, 30000);
+    // Refresh every 10 seconds for better responsiveness
+    const interval = setInterval(fetchData, 10000);
     return () => clearInterval(interval);
   }, []);
 
