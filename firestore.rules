@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isValidStudyHour(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.hours is number && data.hours > 0 && data.hours < 1000 &&
+             (!('institution' in data) || data.institution == null || (data.institution is string && data.institution.size() < 100)) &&
+             (!('phone' in data) || data.phone == null || (data.phone is string && data.phone.size() < 20)) &&
+             data.createdAt == request.time;
+    }
+
+    match /study_hours/{docId} {
+      // Allow public read for the progress bar and list
+      allow read: if true;
+      
+      // Allow creation by anyone (unauthenticated for this specific app as requested "static with firebase connection")
+      // But we should still validate the data
+      allow create: if isValidStudyHour(request.resource.data);
+      
+      // No updates or deletes allowed for participants
+      allow update, delete: if false;
+    }
+  }
+}

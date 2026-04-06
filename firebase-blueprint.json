@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "StudyHour": {
+      "title": "StudyHour",
+      "description": "A record of study hours contributed by a user.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the participant."
+        },
+        "hours": {
+          "type": "number",
+          "description": "The number of hours committed."
+        },
+        "institution": {
+          "type": "string",
+          "description": "Optional institution name."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Optional phone number for updates."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time the record was created."
+        }
+      },
+      "required": ["name", "hours", "createdAt"]
+    }
+  },
+  "firestore": {
+    "study_hours": {
+      "schema": "StudyHour",
+      "description": "Collection of all study hour commitments."
+    }
+  }
+}
