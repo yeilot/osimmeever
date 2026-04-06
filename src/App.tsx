@@ -28,6 +28,16 @@ const TARGET_DEEDS = 250;
 const END_DATE = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000); // 5 days from now
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjYr2RZznyQFeSnuUjLNVmMwiViSm4D72LmS-hY81NH_IvKWKBAkbhJfTU7eJmUjefCQ/exec';
 
+// Google Drive IDs - Replace these with your actual IDs from Drive
+const GUY_IMAGE_DRIVE_ID = '16yrbvuwjc0WZgyav6wxfvKeJHlvKKgAO'; // Paste Guy's image ID here
+const MAGLAN_LOGO_DRIVE_ID = '11NiHxw0i1xBC3J19mSlLf635W9te7wCZ'; // Paste Maglan logo ID here
+
+// Helper to get direct Drive image URL
+const getDriveImageUrl = (id: string, fallback: string) => {
+  if (!id) return fallback;
+  return `https://lh3.googleusercontent.com/u/0/d/${id}`;
+};
+
 interface Participant {
   id: string;
   name: string;
@@ -162,26 +172,29 @@ export default function App() {
         
         <div className="max-w-5xl mx-auto relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="flex justify-center gap-8 mb-8">
-               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-amber-400 overflow-hidden shadow-xl bg-slate-200">
-                  <img src="/guy.jpg" alt={'גיא לודר הי"ד'} className="w-full h-full object-cover" referrerPolicy="no-referrer" onError={(e) => e.currentTarget.src = 'https://picsum.photos/seed/guy/300/300'} />
-               </div>
-               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white p-2 border-4 border-amber-400 shadow-xl flex items-center justify-center">
-                  <img src="/maglan.png" alt="רבנות מגלן" className="w-full h-full object-contain" referrerPolicy="no-referrer" onError={(e) => e.currentTarget.src = 'https://picsum.photos/seed/maglan/300/300'} />
+            <div className="flex justify-center mb-8">
+               <div className="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-amber-400 overflow-hidden shadow-2xl bg-slate-200">
+                  <img 
+                    src={getDriveImageUrl(GUY_IMAGE_DRIVE_ID, "/guy.jpg")} 
+                    alt='גיא לודר ז"ל' 
+                    className="w-full h-full object-cover" 
+                    referrerPolicy="no-referrer" 
+                    onError={(e) => e.currentTarget.src = 'https://picsum.photos/seed/guy/300/300'} 
+                  />
                </div>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-4 text-amber-400 drop-shadow-2xl">
               עושים מעבר
             </h1>
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-white">לעילוי נשמת גיא לודר הי"ד</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-white">לעילוי נשמת גיא לודר ז"ל</h2>
             
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <button 
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
-                      title: 'עושים מעבר - לעילוי נשמת גיא לודר הי"ד',
+                      title: 'עושים מעבר - לעילוי נשמת גיא לודר ז"ל',
                       text: 'גיא היה לוחם של מעבר, בואו ניקח לזכותו מעשה טוב שהוא "מעבר" למה שאנחנו רגילים.',
                       url: window.location.href
                     });
@@ -197,7 +210,7 @@ export default function App() {
               </button>
 
               <a 
-                href={`https://wa.me/?text=${encodeURIComponent('לקחתי חלק במיזם "עושים מעבר" לעילוי נשמת גיא לודר הי"ד. הצטרפו אלינו והוסיפו מעשה טוב שהוא "מעבר" לרגיל!\n' + window.location.href)}`}
+                href={`https://wa.me/?text=${encodeURIComponent('לקחתי חלק במיזם "עושים מעבר" לעילוי נשמת גיא לודר ז"ל. הצטרפו אלינו והוסיפו מעשה טוב שהוא "מעבר" לרגיל!\n' + window.location.href)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold transition-all shadow-lg hover:scale-105 active:scale-95"
@@ -219,7 +232,7 @@ export default function App() {
             </div>
 
             <div className="inline-block px-8 py-3 border-y-2 border-amber-400/40 text-amber-200 italic text-lg">
-              המיזם מטעם רבנות יחידת מגלן
+              לזכרו של גיא לודר ז"ל
             </div>
           </motion.div>
         </div>
@@ -368,7 +381,7 @@ export default function App() {
               <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle2 className="w-12 h-12" /></div>
               <h2 className="text-3xl font-bold mb-4 text-[#1a2a3a]">אשריך!</h2>
               <p className="text-xl text-slate-600 mb-8">תודה על המעשה הטוב! בואו נגיע ליעד ביחד.</p>
-              <a href={`https://wa.me/?text=${encodeURIComponent('לקחתי חלק במיזם "עושים מעבר" לעילוי נשמת גיא לודר הי"ד. הצטרפו אלינו והוסיפו מעשה טוב שהוא "מעבר" לרגיל!\nhttps://mitnadvimbetora.vercel.app/')}`} target="_blank" rel="noopener noreferrer" className="w-full py-4 bg-green-600 text-white rounded-2xl font-bold text-xl hover:bg-green-700 transition-all flex items-center justify-center gap-3">
+              <a href={`https://wa.me/?text=${encodeURIComponent('לקחתי חלק במיזם "עושים מעבר" לעילוי נשמת גיא לודר ז"ל. הצטרפו אלינו והוסיפו מעשה טוב שהוא "מעבר" לרגיל!\n' + window.location.href)}`} target="_blank" rel="noopener noreferrer" className="w-full py-4 bg-green-600 text-white rounded-2xl font-bold text-xl hover:bg-green-700 transition-all flex items-center justify-center gap-3">
                 <MessageCircle className="w-6 h-6" /> שתף בוואטסאפ
               </a>
               <button onClick={() => setShowShareModal(false)} className="mt-4 text-slate-400 font-medium">סגור</button>
@@ -377,10 +390,21 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <footer className="bg-slate-100 py-12 px-4 text-center border-t border-slate-200">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-amber-600 font-bold text-2xl mb-4 italic">"עושים מעבר - לעילוי נשמת גיא לודר הי\"ד"</div>
-          <p className="text-slate-500">המיזם מטעם רבנות יחידת מגלן</p>
+      <footer className="bg-slate-100 py-16 px-4 text-center border-t border-slate-200">
+        <div className="max-w-5xl mx-auto flex flex-col items-center gap-8">
+          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white p-2 border-2 border-amber-200 shadow-sm flex items-center justify-center">
+            <img 
+              src={getDriveImageUrl(MAGLAN_LOGO_DRIVE_ID, "/maglan.png")} 
+              alt="רבנות מגלן" 
+              className="w-full h-full object-contain" 
+              referrerPolicy="no-referrer" 
+              onError={(e) => e.currentTarget.src = 'https://picsum.photos/seed/maglan/300/300'} 
+            />
+          </div>
+          <div>
+            <div className="text-amber-600 font-bold text-2xl mb-2 italic">"עושים מעבר - לעילוי נשמת גיא לודר ז"ל"</div>
+            <p className="text-slate-500 font-medium">המיזם מטעם רבנות יחידת מגלן</p>
+          </div>
         </div>
       </footer>
     </div>
