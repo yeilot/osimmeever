@@ -56,10 +56,6 @@ export default function App() {
 
   // Fetch data from Google Sheets
   const fetchData = async () => {
-    if (SCRIPT_URL === 'YOUR_NEW_SCRIPT_URL_HERE') {
-      setError('יש להגדיר כתובת סקריפט ב-App.tsx');
-      return;
-    }
     try {
       const response = await fetch(SCRIPT_URL);
       if (!response.ok) throw new Error('Failed to fetch data');
@@ -300,28 +296,39 @@ export default function App() {
               <Users className="w-6 h-6 text-amber-600" />
               המעשים האחרונים
             </h2>
-            <div className="space-y-4">
-              {participants.slice(0, 15).map((p, idx) => (
-                <motion.div 
-                  key={p.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between group hover:shadow-md transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center text-amber-600 font-bold text-xl">
-                      {p.name[0]}
+            <div className="relative">
+              <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-amber-200 scrollbar-track-transparent">
+                {participants.map((p, idx) => (
+                  <motion.div 
+                    key={p.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: Math.min(idx * 0.05, 0.5) }}
+                    className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between group hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center text-amber-600 font-bold text-xl">
+                        {p.name[0]}
+                      </div>
+                      <div>
+                        <div className="font-bold text-lg text-[#1a2a3a]">{p.name}</div>
+                        <div className="text-sm text-slate-500 italic">"{p.deed}"</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-bold text-lg text-[#1a2a3a]">{p.name}</div>
-                      <div className="text-sm text-slate-500 italic">"{p.deed}"</div>
+                    <div className="text-left text-xs text-slate-400 shrink-0 mr-4">
+                      {safeFormatDistance(p.createdAt)}
                     </div>
+                  </motion.div>
+                ))}
+                {participants.length === 0 && (
+                  <div className="text-center py-12 text-slate-400 italic bg-white rounded-2xl border border-dashed border-slate-200">
+                    עדיין אין מעשים... היו הראשונים לעשות מעבר!
                   </div>
-                  <div className="text-left text-xs text-slate-400">
-                    {safeFormatDistance(p.createdAt)}
-                  </div>
-                </motion.div>
-              ))}
+                )}
+              </div>
+              {participants.length > 5 && (
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#fdfbf7] to-transparent pointer-events-none rounded-b-2xl"></div>
+              )}
             </div>
           </div>
 
