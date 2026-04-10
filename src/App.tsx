@@ -398,20 +398,9 @@ export default function App() {
       </AnimatePresence>
 
       <footer className="bg-slate-100 py-16 px-4 text-center border-t border-slate-200">
-        <div className="max-w-5xl mx-auto flex flex-col items-center gap-8">
-          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white p-2 border-2 border-amber-200 shadow-sm flex items-center justify-center">
-            <img 
-              src={getDriveImageUrl(MAGLAN_LOGO_DRIVE_ID, "/maglan.png")} 
-              alt="רבנות מגלן" 
-              className="w-full h-full object-contain" 
-              referrerPolicy="no-referrer" 
-              onError={(e) => e.currentTarget.src = 'https://picsum.photos/seed/maglan/300/300'} 
-            />
-          </div>
-          <div>
-            <div className="text-amber-600 font-bold text-2xl mb-2 italic">"עושים מעבר - לעילוי נשמת גיא לודר ז"ל"</div>
-            <p className="text-slate-500 font-medium">המיזם מטעם רבנות יחידת מגלן</p>
-          </div>
+        <div className="max-w-5xl mx-auto flex flex-col items-center gap-4">
+          <div className="text-amber-600 font-bold text-2xl mb-2 italic">"עושים מעבר - לעילוי נשמת גיא לודר ז"ל"</div>
+          <p className="text-slate-500 font-bold text-xl">בתודה, החברים של גיאצ'י</p>
         </div>
       </footer>
     </div>
